@@ -13,11 +13,11 @@ unsigned long count_split_inversions(int *left_input, size_t left_size, int* rig
   }
 
   while(left_index < left_size && right_index < right_size) {
-    if(*(left_input + left_index) < *(right_input + right_index)) {
-      *(*output + index) = *(left_input + left_index);
+    if(left_input[left_index] < right_input[right_index]) {
+      (*output)[index] = left_input[left_index];
       left_index++;
     } else {
-      *(*output + index) = *(right_input + right_index);
+      (*output)[index] = right_input[right_index];
       inversions += left_size - left_index;
       right_index++;
     }
@@ -25,12 +25,12 @@ unsigned long count_split_inversions(int *left_input, size_t left_size, int* rig
   }
 
   for(; right_index < right_size; right_index++) {
-    *(*output + index) = *(right_input + right_index);
+    (*output)[index] = right_input[right_index];
     index++;
   }
 
   for(; left_index < left_size; left_index++) {
-    *(*output + index) = *(left_input + left_index);
+    (*output)[index] = left_input[left_index];
     index++;
   }
 
@@ -60,7 +60,6 @@ unsigned long count_inversions(int* input, size_t size, int** output) {
     free(left_output);
     free(right_output);
 
-    printf("Counted %lu inversions\n", left_inversions + right_inversions + split_inversions);
     return left_inversions + right_inversions + split_inversions;
   }
 
@@ -111,6 +110,9 @@ int main(int argc, char** argv) {
     free(line);
     line = NULL;
     lines_read++;
+    if(lines_read == num_lines) {
+      break;
+    }
   }
   printf("Read %d lines\n", lines_read);
 
