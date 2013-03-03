@@ -25,6 +25,9 @@ VERTEX* vertex_tokenize(char* line, char* delim, char** context) {
 
   char* endptr = NULL;
   int vertex_label = (int)strtol(vertex_label_string, &endptr, 10);
+  if(endptr == vertex_label_string) {
+    return NULL;
+  }
 
   return vertex_create(vertex_label);
 }
