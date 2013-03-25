@@ -32,9 +32,6 @@ void graph_destroy(GRAPH* graph) {
   free(graph);
 }
 
-unsigned int* graph_finish_times(GRAPH* graph) {
-}
-
 GRAPH* graph_load_from_file(const char* file_path) {
   if(-1 == access(file_path, F_OK)) {
     return NULL;
@@ -73,6 +70,19 @@ GRAPH* graph_load_from_file(const char* file_path) {
 
 size_t graph_num_vertices(GRAPH* graph) {
   return graph->num_vertices;
+}
+
+void graph_print(GRAPH* graph) {
+  int i;
+  for(i = 0; i < graph_num_vertices(graph); i++) {
+    printf("tail %i heads", i);
+    int j;
+    VERTEX* vertex = graph_vertex(graph, i);
+    for(j = 0; j < vertex_num_heads(vertex); j++) {
+      printf(" %i", vertex_head(vertex, j));
+    }
+    printf("\n");
+  }
 }
 
 void graph_resize(GRAPH* graph, size_t num_vertices) {

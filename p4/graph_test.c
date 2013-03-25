@@ -32,6 +32,7 @@ void test_graph_destroy() {
 void test_graph_load_from_file() {
   GRAPH* graph = graph_load_from_file("./graph_test.txt");
   assert(51 == graph_num_vertices(graph));
+  assert(3 == vertex_num_heads(graph_vertex(graph, 0)));
   graph_destroy(graph);
 }
 
