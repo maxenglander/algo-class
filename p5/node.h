@@ -9,7 +9,9 @@ typedef struct Node Node;
 Node* node_create(void* value);
 void node_destroy(Node* node);
 bool node_has_next(Node*);
+bool node_has_previous(Node*);
 Node* node_next(Node*);
+Node* node_previous(Node*);
 void node_set_next(Node*, Node*);
 void* node_value(Node*);
 

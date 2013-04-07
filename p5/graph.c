@@ -59,7 +59,7 @@ Graph* graph_load_from_file(const char* file_path) {
     unsigned int tail = atoi(strtok_r(line, "\t", &save0));
 
     char* edge = NULL;
-    while(NULL != (edge = strtok_r(NULL, "\t", &save0))) {
+    while(NULL != (edge = strtok_r(NULL, "\t\n", &save0))) {
       unsigned int head = atoi(strtok_r(edge, ",", &save1));
       unsigned int length = atoi(strtok_r(NULL, ",", &save1));
       graph_add_edge(graph, tail, head, length);

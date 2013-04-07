@@ -13,5 +13,6 @@ Vertex* vertex_create(unsigned int label);
 void vertex_destroy(Vertex*);
 List* vertex_edges(Vertex*);
 bool vertex_has_edges(Vertex*);
+unsigned int vertex_label(Vertex* vertex);
 
 #endif

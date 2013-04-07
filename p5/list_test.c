@@ -10,11 +10,18 @@ int main() {
 
   assert(0 == list_size(list));
 
-  list_add(list, &a);
-  list_add(list, &b);
-  list_add(list, &c);
+  list_push(list, &a);
+  list_push(list, &b);
+  list_push(list, &c);
 
   assert(3 == list_size(list));
+
+  assert(&c == (int*)list_pop(list));
+  assert(2 == list_size(list));
+  assert(&b == (int*)list_pop(list));
+  assert(1 == list_size(list));
+  assert(&a == (int*)list_pop(list));
+  assert(true == list_empty(list));
 
   list_destroy(list);
   return 0;

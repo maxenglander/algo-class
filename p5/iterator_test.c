@@ -16,9 +16,9 @@ int main() {
 
   iterator_destroy(iterator);
 
-  list_add(list, &a);
-  list_add(list, &b);
-  list_add(list, &c);
+  list_push(list, &a);
+  list_push(list, &b);
+  list_push(list, &c);
 
   iterator = list_iterator(list);
 

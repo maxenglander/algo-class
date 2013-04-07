@@ -12,7 +12,7 @@ void vertex_add_edge(Vertex* vertex, Vertex* head, unsigned int length) {
   }
 
   Edge* edge = edge_create(head, length);
-  list_add(vertex->edges, edge);
+  list_push(vertex->edges, edge);
 }
 
 Vertex* vertex_create(unsigned int label) {
@@ -31,4 +31,8 @@ List* vertex_edges(Vertex* vertex) {
 
 bool vertex_has_edges(Vertex* vertex) {
   return vertex_edges(vertex) != NULL && !list_empty(vertex->edges);
+}
+
+unsigned int vertex_label(Vertex* vertex) {
+  return vertex->label;
 }
