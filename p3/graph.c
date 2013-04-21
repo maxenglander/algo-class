@@ -175,10 +175,14 @@ GRAPH* graph_load_from_file(const char* file_path) {
   GRAPH* graph = graph_create(DEFAULT_VERTEX_CAPACITY, DEFAULT_EDGE_CAPACITY, DEFAULT_LOAD_FACTOR);
   FILE* fp = fopen(file_path, "r");
   char* line = NULL;
+  char* copy = NULL;
   size_t n = 0;
-  while(0 <= getline(&line, &n, fp)) {
+  while((line = fgetln(fp, &n)) != NULL) {
+    copy = malloc(sizeof(char) * n + 1);
+    memcpy(copy, line, n);
+    copy[n] = '\0';
     char* context = NULL;
-    VERTEX* vertex = vertex_tokenize(line, "\t", &context);
+    VERTEX* vertex = vertex_tokenize(copy, "\t", &context);
     VERTEX* adjacent_vertex = NULL;
     while(NULL != (adjacent_vertex = vertex_tokenize(NULL, "\t", &context))) {
       EDGE* edge = edge_create(vertex, adjacent_vertex);
@@ -186,8 +190,8 @@ GRAPH* graph_load_from_file(const char* file_path) {
         graph_add_edge(graph, edge_create(vertex, adjacent_vertex));
       }
     }
-    free(line);
-    line = NULL;
+    free(copy);
+    copy = NULL;
   }
   fclose(fp);
   return graph;
