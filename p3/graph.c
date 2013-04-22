@@ -6,6 +6,7 @@
 #include "graph.h"
 
 #define LOAD_FACTOR 0.75
+#define BUFSIZE 300
 
 bool graph_add_vertex(GRAPH* graph, VERTEX* vertex);
 bool graph_has_edge(GRAPH* graph, EDGE* edge);
@@ -174,13 +175,11 @@ bool graph_has_vertex(GRAPH* graph, VERTEX* vertex) {
 GRAPH* graph_load_from_file(const char* file_path) {
   GRAPH* graph = graph_create(DEFAULT_VERTEX_CAPACITY, DEFAULT_EDGE_CAPACITY, DEFAULT_LOAD_FACTOR);
   FILE* fp = fopen(file_path, "r");
-  char* line = NULL;
   char* copy = NULL;
+  char buf[BUFSIZE];
   size_t n = 0;
-  while((line = fgetln(fp, &n)) != NULL) {
-    copy = malloc(sizeof(char) * n + 1);
-    memcpy(copy, line, n);
-    copy[n] = '\0';
+  while(fgets(buf, BUFSIZE - 1,fp) != NULL) {
+    copy = strdup(buf);
     char* context = NULL;
     VERTEX* vertex = vertex_tokenize(copy, "\t", &context);
     VERTEX* adjacent_vertex = NULL;
